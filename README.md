@@ -15,7 +15,7 @@
       Enforce role-based access for system security.
       Provide real-time and reliable REST APIs for frontend clients.
 
-🚀 Features
+🚀 Features:
       👨‍💼 Employee Management
             Add, edit, view, or delete employees.
             Assign roles (Admin, HR, Employee).
@@ -47,11 +47,11 @@
 
 🛠️ Tech Stack
 Layer	Technology
-Backend Framework	Node.js + Express.js
-Database	MySQL
-ORM / Query Builder	MySQL2
-Authentication	JWT (JSON Web Token)
-Security	bcrypt, helmet, cors
-Validation	express-validator
-Environment Management	dotenv
-Logging & Debugging	morgan, nodemon (dev)
+Backend Framework	            Node.js + Express.js
+Database	                     MySQL
+ORM / Query Builder	         MySQL2
+Authentication             	JWT (JSON Web Token)
+Security	                     bcrypt, helmet, cors
+Validation	                  express-validator
+Environment Management	      dotenv
+Logging & Debugging	         morgan, nodemon (dev)
