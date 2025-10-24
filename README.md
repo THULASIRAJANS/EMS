@@ -55,3 +55,43 @@ Security	                     bcrypt, helmet, cors
 Validation	                  express-validator
 Environment Management	      dotenv
 Logging & Debugging	         morgan, nodemon (dev)
+
+BACKEND/
+│
+├── config/                # Environment & Database setup
+│   ├── env.config.js
+│   ├── mysql.config.js
+│
+├── controllers/           # Business logic for modules
+│   ├── attendance.controller.js
+│   ├── auth.controller.js
+│   ├── employee.controller.js
+│   ├── leave.controller.js
+│   ├── payroll.controller.js
+│   ├── task.controller.js
+│
+├── middleware/            # Auth & Role-based Access
+│   ├── auth.middleware.js
+│   ├── role.middleware.js
+│
+├── models/mysql/          # MySQL Models (Database Layer)
+│   ├── attendance.model.js
+│   ├── employee.model.js
+│   ├── payroll.model.js
+│   ├── user.model.js
+│
+├── routes/                # API Endpoints (Routes)
+│   ├── attendance.routes.js
+│   ├── auth.routes.js
+│   ├── employee.routes.js
+│   ├── leave.routes.js
+│   ├── payroll.routes.js
+│   ├── task.routes.js
+│
+├── utils/                 # Helper functions
+│
+├── app.js                 # App configuration (routes, middleware)
+├── server.js              # Entry point of the server
+├── .env                   # Environment variables
+├── package.json           # Project metadata & dependencies
+└── README.md              # Documentation
