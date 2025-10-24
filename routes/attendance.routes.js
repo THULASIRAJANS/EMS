@@ -1,17 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const authenticateToken = require('../middleware/auth.middleware');
 const {
-  createAttendance,
-  getAllAttendance,
-  getAttendanceByEmployeeId,
-  updateAttendance,
-  deleteAttendance,
+  clockIn,
+  clockOut,
+  getAttendanceLogs,
 } = require('../controllers/attendance.controller');
 
-router.post('/', createAttendance);
-router.get('/', getAllAttendance);
-router.get('/:employee_id', getAttendanceByEmployeeId);
-router.put('/:id', updateAttendance);
-router.delete('/:id', deleteAttendance);
+router.post('/check-in', authenticateToken, clockIn);
+router.post('/check-out', authenticateToken, clockOut);
+router.get('/logs', authenticateToken, getAttendanceLogs);
 
 module.exports = router;

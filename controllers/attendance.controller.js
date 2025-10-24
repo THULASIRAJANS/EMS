@@ -1,62 +1,39 @@
-const Attendance = require('../models/mysql/attendance.model');
+const db = require('../config/mysql.config');
 
-// ✅ Create Attendance
-const createAttendance = (req, res) => {
-  const newAtt = req.body;
-  Attendance.create(newAtt, (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res
-      .status(201)
-      .json({ message: 'Attendance added successfully!', id: result.insertId });
-  });
+const clockIn = async (req, res) => {
+  try {
+    await db.query(
+      'INSERT INTO attendance (employee_id, check_in) VALUES (?, NOW())',
+      [req.user.id]
+    );
+    res.json({ message: 'Clock-in recorded' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-// ✅ Get All Attendance
-const getAllAttendance = (req, res) => {
-  Attendance.findAll((err, records) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(records);
-  });
+const clockOut = async (req, res) => {
+  try {
+    await db.query(
+      'UPDATE attendance SET check_out = NOW() WHERE employee_id = ? AND check_out IS NULL ORDER BY check_in DESC LIMIT 1',
+      [req.user.id]
+    );
+    res.json({ message: 'Clock-out recorded' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-// ✅ Get Attendance by Employee ID
-const getAttendanceByEmployeeId = (req, res) => {
-  const { employee_id } = req.params;
-  Attendance.findByEmployeeId(employee_id, (err, records) => {
-    if (err) return res.status(500).json({ error: err.message });
-    if (records.length === 0)
-      return res.status(404).json({ message: 'No attendance found' });
-    res.json(records);
-  });
+const getAttendanceLogs = async (req, res) => {
+  try {
+    const [logs] = await db.query(
+      'SELECT check_in, check_out FROM attendance WHERE employee_id = ? ORDER BY check_in DESC',
+      [req.user.id]
+    );
+    res.json(logs);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-// ✅ Update Attendance
-const updateAttendance = (req, res) => {
-  const { id } = req.params;
-  const att = req.body;
-  Attendance.update(id, att, (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
-    if (result.affectedRows === 0)
-      return res.status(404).json({ message: 'Record not found' });
-    res.json({ message: 'Attendance updated successfully' });
-  });
-};
-
-// ✅ Delete Attendance
-const deleteAttendance = (req, res) => {
-  const { id } = req.params;
-  Attendance.delete(id, (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
-    if (result.affectedRows === 0)
-      return res.status(404).json({ message: 'Record not found' });
-    res.json({ message: 'Attendance deleted successfully' });
-  });
-};
-
-module.exports = {
-  createAttendance,
-  getAllAttendance,
-  getAttendanceByEmployeeId,
-  updateAttendance,
-  deleteAttendance,
-};
+module.exports = { clockIn, clockOut, getAttendanceLogs };
