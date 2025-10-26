@@ -73,6 +73,16 @@ The EMS backend exposes **RESTful APIs** that can be connected to any frontend i
 
 ---
 
+## 🧩 Database Schema
+
+Below are the database relationship diagrams used in this project.
+
+### 👥 Users and Roles Relationship
+![Users and Roles](./assets/images/us.png)
+
+### 🧾 Complete HRMS Database Structure
+![Database Schema](./assets/images/database.png)
+
 ## 📁 Project Structure
 
 ```bash
@@ -117,12 +127,4 @@ BACKEND/
 └── README.md                   # Documentation
 
 
-## 🧩 Database Schema
 
-Below are the database relationship diagrams used in this project.
-
-### 👥 Users and Roles Relationship
-![Users and Roles](./assets/images/us.png)
-
-### 🧾 Complete HRMS Database Structure
-![Database Schema](./assets/images/database.png)
